@@ -1,0 +1,128 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    cast in C++98                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/23 18:34:21 by nfordoxc          #+#    #+#              #
+#    Updated: 2025/02/23 18:40:02 by nfordoxc         ###   Luxembourg.lu      #
+#                                                                              #
+# **************************************************************************** #
+
+il esist 4 cast en c++98
+
+1)	static_cast:
+
+Utilisé pour les conversions simples et sûres entre types compatibles, vérifiées
+à la compilation. Il ne vérifie pas la validité de la conversion à l'exécution.
+
+expemple:
+
+################################################################################
+#	#include <iostream>
+#	
+#	int main() {
+#	    double pi = 3.14159;
+#	    int intPi = static_cast<int>(pi);  // Conversion de double à int
+#	    std::cout << "intPi: " << intPi << std::endl;  // Affiche : intPi: 3
+#	
+#	    return 0;
+#	}
+################################################################################
+
+2)	dynamic_cast:
+
+Utilisé principalement pour les conversions entre types polymorphiques 
+(c'est-à-dire des classes avec des méthodes virtuelles).
+Il vérifie à l'exécution si la conversion est valide.
+
+exemple:
+
+################################################################################
+#	#include <iostream>
+#	#include <typeinfo>
+#	
+#	class Base {
+#	public:
+#	    virtual void show() { std::cout << "Base class" << std::endl; }
+#	};
+#	
+#	class Derived : public Base {
+#	public:
+#	    void show() override { std::cout << "Derived class" << std::endl; }
+#	};
+#	
+#	int main() {
+#	    Base* basePtr = new Derived();
+#	
+#	    // Conversion sûre avec dynamic_cast
+#	    Derived* derivedPtr = dynamic_cast<Derived*>(basePtr);
+#	    if (derivedPtr) {
+#	        derivedPtr->show();  // Affiche : Derived class
+#	    } else {
+#	        std::cout << "Conversion failed" << std::endl;
+#	    }
+#	
+#	    delete basePtr;
+#	    return 0;
+#	}
+################################################################################
+
+3)	const_cast:
+
+Utilisé pour ajouter ou supprimer la qualification const d'un type. 
+Il est souvent utilisé pour passer une constante à une fonction qui ne prend 
+pas d'argument constant.
+
+exemple:
+
+################################################################################
+#	#include <iostream>
+#	
+#	void print(int* ptr) {
+#	    *ptr = 20;  // Modification de la valeur pointée
+#	    std::cout << "Value: " << *ptr << std::endl;  // Affiche : Value: 20
+#	}
+#	
+#	int main() {
+#	    const int a = 10;
+#	    print(const_cast<int*>(&a));
+#	
+#	    return 0;
+#	}
+################################################################################
+
+4)	reinterpret_cast:
+
+Utilisé pour les conversions de bas niveau, souvent dangereuses, comme convertir
+un pointeur en un autre type de pointeur. Utilisez-le avec prudence.
+
+exemple:
+
+################################################################################
+#	#include <iostream>
+#	
+#	int main() {
+#	    int num = 65;
+#	    char* charPtr = reinterpret_cast<char*>(&num);
+#	    std::cout << "charPtr: " << *charPtr << std::endl;
+#		// Affiche : charPtr: A (valeur ASCII de 65)
+#	
+#	    return 0;
+#	}
+################################################################################
+
+En résumé :
+
+static_cast :
+	Pour les conversions simples et sûres entre types compatibles.
+
+dynamic_cast :
+	Pour les conversions polymorphiques avec vérification à l'exécution.
+
+const_cast :
+	Pour ajouter ou supprimer la qualification const.
+
+reinterpret_cast :
+	Pour les conversions de bas niveau.
