@@ -1,43 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   Base.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 18:42:49 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/24 09:44:57 by nfordoxc         ###   Luxembourg.lu     */
+/*   Created: 2025/02/24 09:37:52 by nfordoxc          #+#    #+#             */
+/*   Updated: 2025/02/24 11:06:18 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-# define SERIALIZER_HPP
+#ifndef BASE_HPP
+# define BASE_HPP
 
 # include <iostream>
+# include <cstdlib>
+# include <ctime>
+# include <exception>
 # include <string>
-# include <stdint.h>
 
-struct Data
+
+# define RESET		"\033[0m"
+# define RED		"\033[31m"
+
+class Base
 {
-	char	character;
-	int		number;
-};
-
-class	Serializer
-{
-	private:
-
-		/*	Canonical form	*/
-		Serializer( void );
-		Serializer( Serializer const &src_object );
-		~Serializer( void );
-		Serializer 			&operator=( Serializer const &src_object );
 
 	public:
 
+		virtual ~Base( void );
+
 		/*	Method	*/
-		static uintptr_t	serialize( Data *ptr );
-		static Data 		*deserialize( uintptr_t raw );
+		static Base	*generate( void );
+		static void	identify( Base *ptr );
+		static void	identify( Base &ref );
+	
+		class	BadCastException : public std::exception
+		{
+
+			public:
+
+				const char	*what() const throw();
+		
+		};
+	
 };
+
 
 #endif
