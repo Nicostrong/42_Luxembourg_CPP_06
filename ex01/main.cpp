@@ -6,50 +6,68 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:43:06 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/23 19:17:09 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/24 09:35:04 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Serializer.hpp"
 
+void	printData( const std::string &label, Data *data )
+{
+	if (data)
+		std::cout << label << " -> character: " << data->character << ", number: " << data->number << std::endl;
+	else
+		std::cout << label << " -> nullptr" << std::endl;
+	return ;
+}
+
 int	main( void )
 {
-	Data	data;
+	std::cout << "====== TEST 1: valid pointer ======" << std::endl;
+	Data myData;
+	myData.character = 'A';
+	myData.number = 42;
 
-	data.number = 42;
-	data.character = 'A';
+	printData("Original", &myData);
 
-	// Sérialiser
-	uintptr_t raw = Serializer::serialize(&data);
-	std::cout << "Serialized data: " << raw << std::endl;
+	uintptr_t raw = Serializer::serialize(&myData);
+	Data* deserialized = Serializer::deserialize(raw);
 
-	// Désérialiser
-	Data* newData = Serializer::deserialize(raw);
-	std::cout << "Deserialized data - number: " << newData->number << ", character: " << newData->character << std::endl;
+	printData("Deserialized", deserialized);
+	std::cout << "Address initiale: " << &myData << std::endl;
+	std::cout << "Serialize value: " << raw << std::endl;
+	std::cout << "Address after deserialized: " << deserialized << std::endl;
+	std::cout << ((&myData == deserialized) ? "✅ Same address." : "❌ Erreur: not same address.") << std::endl;
 
-	// Vérifier si les pointeurs sont égaux
-	if (newData == &data)
-		std::cout << "The deserialized pointer is equal to the original pointer." << std::endl;
-	else
-		std::cout << "The deserialized pointer is NOT equal to the original pointer." << std::endl;
-	
-	Data	data2;
+	std::cout << "\n====== TEST 2: NULL pointeur ======" << std::endl;
+	Data* nullPtr = NULL;
+	uintptr_t rawNull = Serializer::serialize(nullPtr);
+	Data* deserializedNull = Serializer::deserialize(rawNull);
+	std::cout << "Serialize value: " << rawNull << std::endl;
+	printData("Deserialized of NULL", deserializedNull);
 
-	data2.number = 2147483621;
-	data2.character = 35;
-	
-	// Sérialiser
+	std::cout << "\n====== TEST 3: multiple serialize ======" << std::endl;
+	Data data1 = {'X', 10};
+	Data data2 = {'Y', 20};
+
+	uintptr_t raw1 = Serializer::serialize(&data1);
 	uintptr_t raw2 = Serializer::serialize(&data2);
-	std::cout << "Serialized data: " << raw2 << std::endl;
 
-	// Désérialiser
-	Data* newData2 = Serializer::deserialize(raw2);
-	std::cout << "Deserialized data - number: " << newData2->number << ", character: " << newData2->character << std::endl;
+	Data* d1 = Serializer::deserialize(raw1);
+	Data* d2 = Serializer::deserialize(raw2);
 
-	// Vérifier si les pointeurs sont égaux
-	if (newData2 == &data2)
-		std::cout << "The deserialized pointer is equal to the original pointer." << std::endl;
-	else
-		std::cout << "The deserialized pointer is NOT equal to the original pointer." << std::endl;
+	printData("Data1", d1);
+	printData("Data2", d2);
+
+	std::cout << "\n====== TEST 4: Modification after derserialize ======" << std::endl;
+	d1->character = 'Z';
+	d1->number = 99;
+	std::cout << "Serialize value data1: " << raw1 << std::endl;
+	std::cout << "Serialize value data2: " << raw2 << std::endl;
+	printData("Data1 modified", &data1);
+	printData("Deserialized Data1", d1);
+
+	std::cout << ((&data1 == d1) ? "✅ the deserialized is always the same object." : "❌ Error.") << std::endl;
+
 	return (0);
 }

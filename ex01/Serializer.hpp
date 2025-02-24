@@ -6,7 +6,7 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:42:49 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/23 19:07:02 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/24 09:22:47 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <iostream>
 # include <string>
-# include <cstdlib>
+# include <stdint.h>
 
 struct Data
 {
