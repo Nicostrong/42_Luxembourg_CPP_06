@@ -6,7 +6,7 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 10:33:20 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/23 11:26:48 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/24 09:04:26 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main( void )
 	std::string	input6 = "inff";
 	std::string	input7 = "-inff";
 	std::string	input8 = "+inf";
+	std::string	input9 = "nan";
 	
 	std::cout << "Input: " << input1 << std::endl;
 	ScalarConverter::convert(input1);
@@ -39,6 +40,9 @@ int	main( void )
 	ScalarConverter::convert(input7);
 	std::cout << std::endl << "Input: " << input8 << std::endl;
 	ScalarConverter::convert(input8);
+	std::cout << std::endl << "Input: " << input9 << std::endl;
+	ScalarConverter::convert(input9);
 	
+	std::cout << ((input4 == input9) ? "True" : "False") << std::endl;
 	return (0);
 }

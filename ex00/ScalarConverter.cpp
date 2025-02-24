@@ -6,7 +6,7 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 10:33:58 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/23 11:21:44 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/24 08:40:16 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ScalarConverter::convertChar( double input )
 {
 	std::cout << "char: ";
 	if (std::isnan(input) || std::isinf(input) || input < 32 || input > 127)
-		std::cout << "Non displayable" << std::endl;
+		std::cout << "No displayable" << std::endl;
 	else
 		std::cout << "'" << static_cast<char>(input) << "'" << std::endl;
 	return ;
