@@ -6,7 +6,7 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 10:38:12 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/24 11:01:31 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/25 09:21:16 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ int	main( void )
 {
 	std::srand(std::time(NULL));
 
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 10; ++i)
 	{
+		std::cout << "Object #" << (i + 1) << std::endl;
+
 		Base	*obj = Base::generate();
 
-		std::cout << "Object #" << i << std::endl;
 		Base::identify(obj);
 		Base::identify(*obj);
 
@@ -28,5 +29,10 @@ int	main( void )
 		std::cout << "--------------------------" << std::endl;
 	}
 
+	Base	obj;
+
+	Base::identify(&obj);
+	Base::identify(obj);
+	
 	return (0);
 }

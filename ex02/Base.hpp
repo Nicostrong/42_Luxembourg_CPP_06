@@ -6,7 +6,7 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:37:52 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/24 11:06:18 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/25 09:12:33 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <iostream>
 # include <cstdlib>
 # include <ctime>
-# include <exception>
-# include <string>
 
 
 # define RESET		"\033[0m"
@@ -35,16 +33,6 @@ class Base
 		static void	identify( Base *ptr );
 		static void	identify( Base &ref );
 	
-		class	BadCastException : public std::exception
-		{
-
-			public:
-
-				const char	*what() const throw();
-		
-		};
-	
 };
-
 
 #endif

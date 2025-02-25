@@ -6,7 +6,7 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:54:48 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/24 11:11:56 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/25 09:26:52 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,18 @@
 #include "B.hpp"
 #include "C.hpp"
 
+/*
+ *	Destructor
+ */
 Base::~Base( void)
 {
 	return ;
 }
 
+/*
+ *	We generate a random number between 0 and 2, and we return a pointer to
+ *	the object created. We print the type of the object created.
+ */
 Base		*Base::generate( void )
 {
 	int	random = std::rand() % 3; 
@@ -39,7 +46,11 @@ Base		*Base::generate( void )
 		return (new C());
 	}
 }
-
+/*
+ *	To check the type of the object passed by pointer, we check the return of 
+ *	the dynamic_cast, if the return is nullptr, the object is not of the type 
+ *	we are checking.
+ */
 void		Base::identify( Base *ptr )
 {
 	if (dynamic_cast<A*>(ptr))
@@ -53,6 +64,11 @@ void		Base::identify( Base *ptr )
 	return ;
 }
 
+/*
+ *	To check the type of the object passed by reference, we need to try to 
+ *	cast the reference to the type we are checking, if the cast fails, we
+ *	catch the exception and print the error message. A reference can't be NULL.
+ */
 void		Base::identify( Base &ref )
 {
 	try
@@ -62,7 +78,7 @@ void		Base::identify( Base &ref )
 		(void)a;
 		return;
 	}
-	catch (Base::BadCastException&) {}
+	catch (std::bad_cast &e) { std::cout << "Failed cast: in A" << std::endl;	}
 
 	try
 	{
@@ -71,7 +87,7 @@ void		Base::identify( Base &ref )
 		(void)b;
 		return;
 	}
-	catch (Base::BadCastException&) {}
+	catch (std::bad_cast &e) { std::cout << "Failed cast: in B" << std::endl;	}
 
 	try
 	{
@@ -80,19 +96,7 @@ void		Base::identify( Base &ref )
 		(void)c;
 		return;
 	}
-	catch (Base::BadCastException&) {}
+	catch (std::bad_cast &e) { std::cout << "Failed cast: in C" << std::endl;	}
 	std::cout << "Unknown type" << std::endl;
 	return ;
-}
-
-/*******************************************************************************
- *								EXCEPTION 									   *
- ******************************************************************************/
-
-/*
- *	Exception Bad_cast
- */
-const char	*Base::BadCastException::what() const throw()
-{
-	return  (NULL);
 }
