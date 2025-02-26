@@ -6,7 +6,7 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:37:52 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/25 09:12:33 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/26 09:53:07 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <iostream>
 # include <cstdlib>
 # include <ctime>
+# include <exception>
 
 
 # define RESET		"\033[0m"

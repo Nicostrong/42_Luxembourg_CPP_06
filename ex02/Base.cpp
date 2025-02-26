@@ -6,7 +6,7 @@
 /*   By: nfordoxc <nfordoxc@42luxembourg.lu>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:54:48 by nfordoxc          #+#    #+#             */
-/*   Updated: 2025/02/25 09:26:52 by nfordoxc         ###   Luxembourg.lu     */
+/*   Updated: 2025/02/26 09:54:01 by nfordoxc         ###   Luxembourg.lu     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ void		Base::identify( Base &ref )
 		(void)a;
 		return;
 	}
-	catch (std::bad_cast &e) { std::cout << "Failed cast: in A" << std::endl;	}
+	catch (std::exception &)
+	{
+		std::cout << RED"Failed cast: in A"RESET << std::endl;
+	}
 
 	try
 	{
@@ -87,7 +90,10 @@ void		Base::identify( Base &ref )
 		(void)b;
 		return;
 	}
-	catch (std::bad_cast &e) { std::cout << "Failed cast: in B" << std::endl;	}
+	catch (std::exception &)
+	{
+		std::cout << RED"Failed cast: in B"RESET << std::endl;
+	}
 
 	try
 	{
@@ -96,7 +102,10 @@ void		Base::identify( Base &ref )
 		(void)c;
 		return;
 	}
-	catch (std::bad_cast &e) { std::cout << "Failed cast: in C" << std::endl;	}
+	catch (std::exception &)
+	{
+		std::cout << RED"Failed cast: in C"RESET << std::endl;
+	}
 	std::cout << "Unknown type" << std::endl;
 	return ;
 }
